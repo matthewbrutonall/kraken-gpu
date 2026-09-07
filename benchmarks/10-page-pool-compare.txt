@@ -1,0 +1,26 @@
+10-Page Tier 1 Pool Benchmark
+
+Execution:
+10 pages processed in 21.93s on 8 CPU workers.
+Average: 2.19s per page.
+(Serial baseline: 8.7s per page on these dense pages)
+
+Comparison to kraken-xml-raw (serial baseline):
+[OK] page-290.xml
+[OK] page-291.xml
+[OK] page-292.xml
+[OK] page-293.xml
+[MISMATCH] page-294.xml
+  Regions: Raw=6, Pool=6
+[OK] page-295.xml
+[OK] page-296.xml
+[OK] page-297.xml
+[OK] page-298.xml
+[OK] page-299.xml
+
+Notes on page-294 mismatch:
+Lines and baselines match exactly. The only difference is a 1-pixel background artifact region in the bottom corner which slightly changed coordinate rounding:
+Raw : '1,1456 2,1463 0,1463 0,1456 1,1456'
+Pool: '0,1457 0,1456 0,1456 0,1457 0,1457'
+
+Geometry parity is achieved.

@@ -1,0 +1,146 @@
+page=<benchmark-image>
+size=(1310, 1730) mode=RGB
+device=cuda:0 cuda=True
+gpu=NVIDIA GeForce RTX 5070 Ti
+vram_before_mb=0.0
+model_load_s=0.168
+gpu_warmup_s=0.194
+vram_after_warmup_mb=5.0
+vram_reserved_mb=1486.9
+
+===== staged wall-clock (after warmup, serial) =====
+n_lines=55 n_regions=3
+stage1_gpu_compute_segmentation_map_s=0.092
+stage2_vec_regions_s=0.138
+stage2_vec_lines_s=4.629
+stage2_reading_order_s=0.004
+stage2_cpu_geometry_total_s=4.771
+staged_total_s=4.862
+gpu_pct=1.9
+cpu_geom_pct=98.1
+vec_lines_pct=95.2
+
+===== full blla.segment (model preloaded, includes cProfile overhead) =====
+full_segment_wall_s=5.662
+full_segment_n_lines=55
+
+===== cProfile by cumulative time =====
+         4876552 function calls (4868996 primitive calls) in 5.661 seconds
+
+   Ordered by: cumulative time
+   List reduced from 644 to 50 due to restriction <50>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    5.661    5.661 <source-dir>/kraken/blla.py:251(segment)
+        1    0.004    0.004    5.367    5.367 <source-dir>/kraken/blla.py:169(vec_lines)
+        1    0.034    0.034    3.881    3.881 <source-dir>/kraken/lib/segmentation.py:316(vectorize_lines)
+        1    0.012    0.012    2.289    2.289 <venv-dir>/lib/python3.12/site-packages/skimage/filters/ridges.py:103(sato)
+       26    0.000    0.000    2.254    0.087 <venv-dir>/lib/python3.12/site-packages/scipy/ndimage/_filters.py:326(gaussian_filter)
+       52    0.000    0.000    2.249    0.043 <venv-dir>/lib/python3.12/site-packages/scipy/ndimage/_filters.py:257(gaussian_filter1d)
+       52    0.000    0.000    2.247    0.043 <venv-dir>/lib/python3.12/site-packages/scipy/ndimage/_filters.py:125(correlate1d)
+       52    2.247    0.043    2.247    0.043 {built-in method scipy.ndimage._nd_image.correlate1d}
+        5    0.000    0.000    2.243    0.449 <venv-dir>/lib/python3.12/site-packages/skimage/feature/corner.py:225(hessian_matrix)
+        5    0.000    0.000    2.243    0.449 <venv-dir>/lib/python3.12/site-packages/skimage/feature/corner.py:134(_hessian_matrix_with_gaussian)
+       58    0.265    0.005    1.520    0.026 <source-dir>/kraken/lib/segmentation.py:189(boundary_tracing)
+       55    0.045    0.001    1.447    0.026 <source-dir>/kraken/lib/segmentation.py:753(calculate_polygonal_environment)
+        1    0.005    0.005    1.410    1.410 <source-dir>/kraken/lib/segmentation.py:250(_extend_boundaries)
+   102318    0.407    0.000    0.978    0.000 <source-dir>/kraken/lib/segmentation.py:177(moore_neighborhood)
+       55    0.391    0.007    0.831    0.015 <source-dir>/kraken/lib/segmentation.py:683(_calc_roi)
+   418350    0.113    0.000    0.568    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2548(all)
+       55    0.002    0.000    0.547    0.010 <source-dir>/kraken/lib/segmentation.py:638(_extract_patch)
+      110    0.111    0.001    0.492    0.004 <source-dir>/kraken/lib/segmentation.py:560(_calc_seam)
+   418435    0.185    0.000    0.455    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:86(_wrapreduction_any_all)
+   480587    0.359    0.000    0.359    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+   169038    0.039    0.000    0.254    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:48(_wrapfunc)
+    56474    0.023    0.000    0.204    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2207(clip)
+        1    0.000    0.000    0.191    0.191 <source-dir>/kraken/blla.py:144(vec_regions)
+        1    0.001    0.001    0.191    0.191 <source-dir>/kraken/lib/segmentation.py:422(vectorize_regions)
+    56474    0.011    0.000    0.162    0.000 {method 'clip' of 'numpy.ndarray' objects}
+    56474    0.108    0.000    0.152    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/_methods.py:96(_clip)
+    24866    0.022    0.000    0.142    0.000 <venv-dir>/lib/python3.12/site-packages/shapely/decorators.py:73(wrapped)
+    59208    0.011    0.000    0.133    0.000 {method 'min' of 'numpy.ndarray' objects}
+18075/12279    0.007    0.000    0.125    0.000 <venv-dir>/lib/python3.12/site-packages/shapely/decorators.py:171(wrapper)
+    59209    0.007    0.000    0.122    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/_methods.py:43(_amin)
+   112603    0.116    0.000    0.120    0.000 {built-in method numpy.array}
+      110    0.002    0.000    0.112    0.001 <source-dir>/kraken/lib/segmentation.py:452(_rotate)
+   111727    0.040    0.000    0.103    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:1221(argmax)
+      110    0.000    0.000    0.102    0.001 <venv-dir>/lib/python3.12/site-packages/skimage/transform/_warps.py:764(warp)
+    18788    0.059    0.000    0.091    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/function_base.py:27(linspace)
+        1    0.000    0.000    0.091    0.091 <source-dir>/kraken/blla.py:59(compute_segmentation_map)
+      168    0.000    0.000    0.069    0.000 <venv-dir>/lib/python3.12/site-packages/shapely/geometry/base.py:613(simplify)
+      168    0.069    0.000    0.069    0.000 <venv-dir>/lib/python3.12/site-packages/shapely/constructive.py:1128(simplify)
+        2    0.000    0.000    0.055    0.028 <venv-dir>/lib/python3.12/site-packages/torchvision/transforms/transforms.py:93(__call__)
+     9394    0.041    0.000    0.054    0.000 <source-dir>/kraken/lib/segmentation.py:538(_ray_intersect_boundaries)
+      110    0.000    0.000    0.048    0.000 <venv-dir>/lib/python3.12/site-packages/scipy/ndimage/_interpolation.py:373(map_coordinates)
+        2    0.000    0.000    0.047    0.024 <source-dir>/kraken/lib/functional_im_transforms.py:54(pil_fixed_resize)
+        2    0.000    0.000    0.047    0.024 <source-dir>/kraken/lib/functional_im_transforms.py:66(_fixed_resize)
+        2    0.000    0.000    0.047    0.024 <venv-dir>/lib/python3.12/site-packages/PIL/Image.py:2329(resize)
+        2    0.047    0.024    0.047    0.024 {method 'resize' of 'ImagingCore' objects}
+      110    0.047    0.000    0.047    0.000 {built-in method scipy.ndimage._nd_image.geometric_transform}
+      110    0.001    0.000    0.045    0.000 <venv-dir>/lib/python3.12/site-packages/skimage/transform/_warps.py:627(warp_coords)
+    58658    0.043    0.000    0.043    0.000 {method 'argmin' of 'numpy.ndarray' objects}
+      550    0.000    0.000    0.041    0.000 <venv-dir>/lib/python3.12/site-packages/skimage/transform/_geometric.py:696(__call__)
+      550    0.039    0.000    0.041    0.000 <venv-dir>/lib/python3.12/site-packages/skimage/transform/_geometric.py:674(_apply_mat)
+
+
+
+===== cProfile by tottime (self) =====
+         4876552 function calls (4868996 primitive calls) in 5.661 seconds
+
+   Ordered by: internal time
+   List reduced from 644 to 50 due to restriction <50>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       52    2.247    0.043    2.247    0.043 {built-in method scipy.ndimage._nd_image.correlate1d}
+   102318    0.407    0.000    0.978    0.000 <source-dir>/kraken/lib/segmentation.py:177(moore_neighborhood)
+       55    0.391    0.007    0.831    0.015 <source-dir>/kraken/lib/segmentation.py:683(_calc_roi)
+   480587    0.359    0.000    0.359    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+       58    0.265    0.005    1.520    0.026 <source-dir>/kraken/lib/segmentation.py:189(boundary_tracing)
+   418435    0.185    0.000    0.455    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:86(_wrapreduction_any_all)
+   112603    0.116    0.000    0.120    0.000 {built-in method numpy.array}
+   418350    0.113    0.000    0.568    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2548(all)
+      110    0.111    0.001    0.492    0.004 <source-dir>/kraken/lib/segmentation.py:560(_calc_seam)
+    56474    0.108    0.000    0.152    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/_methods.py:96(_clip)
+      168    0.069    0.000    0.069    0.000 <venv-dir>/lib/python3.12/site-packages/shapely/constructive.py:1128(simplify)
+    18788    0.059    0.000    0.091    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/function_base.py:27(linspace)
+        2    0.047    0.024    0.047    0.024 {method 'resize' of 'ImagingCore' objects}
+      110    0.047    0.000    0.047    0.000 {built-in method scipy.ndimage._nd_image.geometric_transform}
+       55    0.045    0.001    1.447    0.026 <source-dir>/kraken/lib/segmentation.py:753(calculate_polygonal_environment)
+    58658    0.043    0.000    0.043    0.000 {method 'argmin' of 'numpy.ndarray' objects}
+     9394    0.041    0.000    0.054    0.000 <source-dir>/kraken/lib/segmentation.py:538(_ray_intersect_boundaries)
+   141122    0.040    0.000    0.040    0.000 {method 'astype' of 'numpy.ndarray' objects}
+   111727    0.040    0.000    0.103    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:1221(argmax)
+   169038    0.039    0.000    0.254    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:48(_wrapfunc)
+      550    0.039    0.000    0.041    0.000 <venv-dir>/lib/python3.12/site-packages/skimage/transform/_geometric.py:674(_apply_mat)
+   444257    0.037    0.000    0.037    0.000 {method 'items' of 'dict' objects}
+        1    0.035    0.035    0.037    0.037 <source-dir>/kraken/lib/segmentation.py:294(__init__)
+        1    0.035    0.035    0.035    0.035 <source-dir>/kraken/lib/segmentation.py:306(get_connections)
+        1    0.034    0.034    3.881    3.881 <source-dir>/kraken/lib/segmentation.py:316(vectorize_lines)
+   112730    0.034    0.000    0.034    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/getlimits.py:412(__init__)
+        1    0.030    0.030    0.030    0.030 {built-in method scipy.signal._sigtools._convolve2d}
+   111727    0.029    0.000    0.029    0.000 {method 'argmax' of 'numpy.ndarray' objects}
+        5    0.029    0.006    0.029    0.006 <venv-dir>/lib/python3.12/site-packages/skimage/feature/corner.py:390(_symmetric_compute_eigenvalues)
+      220    0.029    0.000    0.029    0.000 {built-in method scipy.ndimage._nd_image.distance_transform_op}
+        1    0.028    0.028    0.028    0.028 {method 'cpu' of 'torch._C.TensorBase' objects}
+    56474    0.023    0.000    0.204    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2207(clip)
+   418350    0.023    0.000    0.023    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2543(_all_dispatcher)
+        4    0.022    0.006    0.022    0.006 {built-in method scipy.ndimage._nd_image.min_or_max_filter1d}
+    24866    0.022    0.000    0.142    0.000 <venv-dir>/lib/python3.12/site-packages/shapely/decorators.py:73(wrapped)
+        1    0.018    0.018    0.018    0.018 <venv-dir>/lib/python3.12/site-packages/skimage/morphology/_skeletonize.py:99(_skeletonize_zhang)
+      110    0.016    0.000    0.016    0.000 {built-in method scipy.ndimage._nd_image.binary_erosion}
+        2    0.014    0.007    0.014    0.007 {built-in method scipy.ndimage._nd_image.correlate}
+   176250    0.014    0.000    0.014    0.000 {method 'append' of 'list' objects}
+   171893    0.014    0.000    0.014    0.000 {built-in method builtins.getattr}
+     6920    0.013    0.000    0.013    0.000 <venv-dir>/lib/python3.12/site-packages/skimage/draw/draw.py:363(line)
+        1    0.012    0.012    2.289    2.289 <venv-dir>/lib/python3.12/site-packages/skimage/filters/ridges.py:103(sato)
+    59208    0.011    0.000    0.133    0.000 {method 'min' of 'numpy.ndarray' objects}
+    19778    0.011    0.000    0.011    0.000 {built-in method numpy.arange}
+      666    0.011    0.000    0.011    0.000 {built-in method numpy.zeros}
+    56474    0.011    0.000    0.162    0.000 {method 'clip' of 'numpy.ndarray' objects}
+        2    0.010    0.005    0.010    0.005 <venv-dir>/lib/python3.12/site-packages/scipy/ndimage/_measurements.py:43(label)
+    46009    0.007    0.000    0.009    0.000 {built-in method builtins.min}
+      274    0.007    0.000    0.008    0.000 <venv-dir>/lib/python3.12/site-packages/shapely/constructive.py:267(offset_curve)
+   111727    0.007    0.000    0.007    0.000 <venv-dir>/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:1217(_argmax_dispatcher)
+
+
+

@@ -1,0 +1,21 @@
+10-page CLI with parent GPU Sato (2026-09-07)
+
+Command (in <gpu-container>):
+kraken-gpu -I cli-sato-10/*.jpg -o .xml -x -w 8 --device cuda:0 segment -bl
+
+Sato applied in parent (sato_torch); workers skip_ridge_filter.
+Heatmap vs skimage Sato: max abs 3e-7, 0 threshold disagreements, 55/55 polylines on p.297.
+
+vs kraken-xml-raw:
+[OK] page-290.xml
+[OK] page-291.xml
+[OK] page-292.xml
+[OK] page-293.xml
+[MISMATCH] page-294.xml  (regions only, 52/52 lines identical — same 0-line junk region as Tier 1)
+[OK] page-295.xml
+[OK] page-296.xml
+[OK] page-297.xml
+[OK] page-298.xml
+[OK] page-299.xml
+
+Crop-equivalent to serial Kraken. Same 9/10 exact as the Shapely-only CLI.

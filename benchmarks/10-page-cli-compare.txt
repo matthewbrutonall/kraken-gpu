@@ -1,0 +1,25 @@
+Running GPU batch segmentation on 10 files with 8 workers...
+[✓] <benchmark-images>/page-297.jpg -> <benchmark-output>/page-297.xml
+[✓] <benchmark-images>/page-294.jpg -> <benchmark-output>/page-294.xml
+[✓] <benchmark-images>/page-292.jpg -> <benchmark-output>/page-292.xml
+[✓] <benchmark-images>/page-296.jpg -> <benchmark-output>/page-296.xml
+[✓] <benchmark-images>/page-293.jpg -> <benchmark-output>/page-293.xml
+[✓] <benchmark-images>/page-298.jpg -> <benchmark-output>/page-298.xml
+[✓] <benchmark-images>/page-290.jpg -> <benchmark-output>/page-290.xml
+[✓] <benchmark-images>/page-291.jpg -> <benchmark-output>/page-291.xml
+[✓] <benchmark-images>/page-295.jpg -> <benchmark-output>/page-295.xml
+[✓] <benchmark-images>/page-299.jpg -> <benchmark-output>/page-299.xml
+File count mismatch: 827 raw vs 10 pool
+[OK] page-290.xml
+[OK] page-291.xml
+[OK] page-292.xml
+[OK] page-293.xml
+[MISMATCH] page-294.xml
+  Regions: Raw=6, Pool=6
+[OK] page-295.xml
+[OK] page-296.xml
+[OK] page-297.xml
+[OK] page-298.xml
+[OK] page-299.xml
+
+MISMATCH DETECTED

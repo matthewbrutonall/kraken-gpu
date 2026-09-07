@@ -1,0 +1,146 @@
+page=<benchmark-image>
+size=(1310, 1730) mode=RGB
+device=cuda:0 cuda=True
+gpu=NVIDIA GeForce RTX 5070 Ti
+vram_before_mb=0.0
+model_load_s=0.166
+gpu_warmup_s=0.226
+vram_after_warmup_mb=5.0
+vram_reserved_mb=1403.0
+
+===== staged wall-clock (after warmup, serial) =====
+n_lines=55 n_regions=3
+stage1_gpu_compute_segmentation_map_s=0.093
+stage2_vec_regions_s=0.137
+stage2_vec_lines_s=7.036
+stage2_reading_order_s=0.004
+stage2_cpu_geometry_total_s=7.177
+staged_total_s=7.270
+gpu_pct=1.3
+cpu_geom_pct=98.7
+vec_lines_pct=96.8
+
+===== full blla.segment (model preloaded, includes cProfile overhead) =====
+full_segment_wall_s=9.051
+full_segment_n_lines=55
+
+===== cProfile by cumulative time =====
+         11579120 function calls (11562060 primitive calls) in 9.049 seconds
+
+   Ordered by: cumulative time
+   List reduced from 657 to 50 due to restriction <50>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    9.049    9.049 /usr/local/lib/python3.12/site-packages/kraken/blla.py:251(segment)
+        1    0.004    0.004    8.757    8.757 /usr/local/lib/python3.12/site-packages/kraken/blla.py:169(vec_lines)
+       55    0.001    0.000    4.816    0.088 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:744(calculate_polygonal_environment)
+       55    0.044    0.001    4.004    0.073 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:680(_calc_roi)
+        1    0.035    0.035    3.901    3.901 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:313(vectorize_lines)
+   927960    0.773    0.000    3.240    0.000 /usr/local/lib/python3.12/site-packages/shapely/decorators.py:73(wrapped)
+     9394    0.050    0.000    2.396    0.000 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:712(_find_closest_point)
+        1    0.012    0.012    2.309    2.309 /usr/local/lib/python3.12/site-packages/skimage/filters/ridges.py:103(sato)
+       26    0.000    0.000    2.274    0.087 /usr/local/lib/python3.12/site-packages/scipy/ndimage/_filters.py:326(gaussian_filter)
+       52    0.000    0.000    2.269    0.044 /usr/local/lib/python3.12/site-packages/scipy/ndimage/_filters.py:257(gaussian_filter1d)
+       52    0.000    0.000    2.267    0.044 /usr/local/lib/python3.12/site-packages/scipy/ndimage/_filters.py:125(correlate1d)
+       52    2.267    0.044    2.267    0.044 {built-in method scipy.ndimage._nd_image.correlate1d}
+        5    0.000    0.000    2.263    0.453 /usr/local/lib/python3.12/site-packages/skimage/feature/corner.py:225(hessian_matrix)
+        5    0.000    0.000    2.263    0.453 /usr/local/lib/python3.12/site-packages/skimage/feature/corner.py:134(_hessian_matrix_with_gaussian)
+       58    0.266    0.005    1.518    0.026 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:189(boundary_tracing)
+68730/53430    0.026    0.000    1.470    0.000 /usr/local/lib/python3.12/site-packages/shapely/decorators.py:171(wrapper)
+        1    0.004    0.004    1.410    1.410 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:247(_extend_boundaries)
+    55280    0.046    0.000    1.186    0.000 {built-in method builtins.min}
+     9556    0.003    0.000    1.177    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:668(intersection)
+     9556    1.155    0.000    1.155    0.000 /usr/local/lib/python3.12/site-packages/shapely/set_operations.py:112(intersection)
+   409641    0.055    0.000    1.139    0.000 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:717(<lambda>)
+   409767    0.115    0.000    1.084    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:343(distance)
+   419042    0.062    0.000    1.051    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:1096(__iter__)
+   409770    0.075    0.000    0.970    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:1093(_get_geom_item)
+   102318    0.400    0.000    0.967    0.000 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:177(moore_neighborhood)
+       55    0.002    0.000    0.807    0.015 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:635(_extract_patch)
+      110    0.122    0.001    0.754    0.007 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:557(_calc_seam)
+   418350    0.112    0.000    0.568    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2548(all)
+   409770    0.482    0.000    0.482    0.000 /usr/local/lib/python3.12/site-packages/shapely/_geometry.py:594(get_geometry)
+   418435    0.191    0.000    0.456    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:86(_wrapreduction_any_all)
+   480633    0.417    0.000    0.417    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+   409767    0.360    0.000    0.360    0.000 /usr/local/lib/python3.12/site-packages/shapely/measurement.py:53(distance)
+      110    0.002    0.000    0.220    0.002 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:449(_rotate)
+      110    0.001    0.000    0.208    0.002 /usr/local/lib/python3.12/site-packages/skimage/transform/_warps.py:764(warp)
+    59202    0.011    0.000    0.196    0.000 {method 'min' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.188    0.188 /usr/local/lib/python3.12/site-packages/kraken/blla.py:144(vec_regions)
+        1    0.001    0.001    0.188    0.188 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:419(vectorize_regions)
+    59203    0.007    0.000    0.186    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/_methods.py:43(_amin)
+   416660    0.069    0.000    0.184    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:72(_maybe_unpack)
+1956373/1956261    0.127    0.000    0.128    0.000 {built-in method builtins.isinstance}
+   109633    0.112    0.000    0.116    0.000 {built-in method numpy.array}
+   416660    0.115    0.000    0.115    0.000 {method 'item' of 'numpy.generic' objects}
+  1347293    0.108    0.000    0.108    0.000 {method 'items' of 'dict' objects}
+    13296    0.017    0.000    0.106    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/linestring.py:40(__new__)
+      110    0.000    0.000    0.105    0.001 /usr/local/lib/python3.12/site-packages/scipy/ndimage/_interpolation.py:373(map_coordinates)
+      110    0.102    0.001    0.102    0.001 {built-in method scipy.ndimage._nd_image.geometric_transform}
+    14366    0.010    0.000    0.102    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:219(coords)
+   102333    0.036    0.000    0.094    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:1221(argmax)
+      110    0.001    0.000    0.094    0.001 /usr/local/lib/python3.12/site-packages/skimage/transform/_warps.py:627(warp_coords)
+        1    0.000    0.000    0.092    0.092 /usr/local/lib/python3.12/site-packages/kraken/blla.py:59(compute_segmentation_map)
+
+
+
+===== cProfile by tottime (self) =====
+         11579120 function calls (11562060 primitive calls) in 9.049 seconds
+
+   Ordered by: internal time
+   List reduced from 657 to 50 due to restriction <50>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+       52    2.267    0.044    2.267    0.044 {built-in method scipy.ndimage._nd_image.correlate1d}
+     9556    1.155    0.000    1.155    0.000 /usr/local/lib/python3.12/site-packages/shapely/set_operations.py:112(intersection)
+   927960    0.773    0.000    3.240    0.000 /usr/local/lib/python3.12/site-packages/shapely/decorators.py:73(wrapped)
+   409770    0.482    0.000    0.482    0.000 /usr/local/lib/python3.12/site-packages/shapely/_geometry.py:594(get_geometry)
+   480633    0.417    0.000    0.417    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+   102318    0.400    0.000    0.967    0.000 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:177(moore_neighborhood)
+   409767    0.360    0.000    0.360    0.000 /usr/local/lib/python3.12/site-packages/shapely/measurement.py:53(distance)
+       58    0.266    0.005    1.518    0.026 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:189(boundary_tracing)
+   418435    0.191    0.000    0.456    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:86(_wrapreduction_any_all)
+1956373/1956261    0.127    0.000    0.128    0.000 {built-in method builtins.isinstance}
+      110    0.122    0.001    0.754    0.007 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:557(_calc_seam)
+   409767    0.115    0.000    1.084    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:343(distance)
+   416660    0.115    0.000    0.115    0.000 {method 'item' of 'numpy.generic' objects}
+   418350    0.112    0.000    0.568    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2548(all)
+   109633    0.112    0.000    0.116    0.000 {built-in method numpy.array}
+  1347293    0.108    0.000    0.108    0.000 {method 'items' of 'dict' objects}
+      110    0.102    0.001    0.102    0.001 {built-in method scipy.ndimage._nd_image.geometric_transform}
+      550    0.083    0.000    0.086    0.000 /usr/local/lib/python3.12/site-packages/skimage/transform/_geometric.py:674(_apply_mat)
+   409770    0.075    0.000    0.970    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:1093(_get_geom_item)
+   416660    0.069    0.000    0.184    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:72(_maybe_unpack)
+      168    0.067    0.000    0.067    0.000 /usr/local/lib/python3.12/site-packages/shapely/constructive.py:1128(simplify)
+   419042    0.062    0.000    1.051    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/base.py:1096(__iter__)
+    58652    0.061    0.000    0.061    0.000 {method 'argmin' of 'numpy.ndarray' objects}
+      220    0.059    0.000    0.059    0.000 {built-in method scipy.ndimage._nd_image.distance_transform_op}
+   409641    0.055    0.000    1.139    0.000 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:717(<lambda>)
+     9394    0.050    0.000    2.396    0.000 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:712(_find_closest_point)
+      165    0.048    0.000    0.049    0.000 /usr/local/lib/python3.12/site-packages/shapely/constructive.py:136(buffer)
+        2    0.047    0.023    0.047    0.023 {method 'resize' of 'ImagingCore' objects}
+    55280    0.046    0.000    1.186    0.000 {built-in method builtins.min}
+       55    0.044    0.001    4.004    0.073 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:680(_calc_roi)
+     9394    0.039    0.000    0.050    0.000 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:535(_ray_intersect_boundaries)
+    13296    0.038    0.000    0.040    0.000 /usr/local/lib/python3.12/site-packages/shapely/creation.py:140(linestrings)
+   102333    0.036    0.000    0.094    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:1221(argmax)
+      110    0.035    0.000    0.035    0.000 {built-in method scipy.ndimage._nd_image.binary_erosion}
+        1    0.035    0.035    0.038    0.038 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:291(__init__)
+        1    0.035    0.035    3.901    3.901 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:313(vectorize_lines)
+        1    0.034    0.034    0.034    0.034 /usr/local/lib/python3.12/site-packages/kraken/lib/segmentation.py:303(get_connections)
+   112940    0.032    0.000    0.032    0.000 {method 'astype' of 'numpy.ndarray' objects}
+        1    0.030    0.030    0.030    0.030 {built-in method scipy.signal._sigtools._convolve2d}
+        5    0.029    0.006    0.029    0.006 /usr/local/lib/python3.12/site-packages/skimage/feature/corner.py:390(_symmetric_compute_eigenvalues)
+        1    0.029    0.029    0.029    0.029 {method 'cpu' of 'torch._C.TensorBase' objects}
+68730/53430    0.026    0.000    1.470    0.000 /usr/local/lib/python3.12/site-packages/shapely/decorators.py:171(wrapper)
+   102333    0.026    0.000    0.026    0.000 {method 'argmax' of 'numpy.ndarray' objects}
+   103280    0.024    0.000    0.070    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:48(_wrapfunc)
+        4    0.024    0.006    0.024    0.006 {built-in method scipy.ndimage._nd_image.min_or_max_filter1d}
+   418350    0.023    0.000    0.023    0.000 /usr/local/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2543(_all_dispatcher)
+     9504    0.022    0.000    0.024    0.000 /usr/local/lib/python3.12/site-packages/shapely/creation.py:52(points)
+    39241    0.022    0.000    0.024    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/linestring.py:63(_coords)
+    14366    0.017    0.000    0.017    0.000 /usr/local/lib/python3.12/site-packages/shapely/predicates.py:45(has_z)
+    13296    0.017    0.000    0.106    0.000 /usr/local/lib/python3.12/site-packages/shapely/geometry/linestring.py:40(__new__)
+
+
+
