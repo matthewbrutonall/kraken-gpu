@@ -1,9 +1,22 @@
 # kraken-gpu
 
-Faster **page segmentation** with the same default BLLA line crops. Apache-2.0.
+Kraken is open-source OCR/HTR software for turning page images into machine
+readable text. It is used especially for historical and archival material:
+printed books, manuscripts, and other documents where line detection, reading
+order, and handwriting/text recognition matter.
 
-This is an independent fork, published as `kraken-gpu`. It is not the upstream
-Kraken project and should not be presented as such.
+`kraken-gpu` is an independent spin off of Kraken focused on faster page
+segmentation. Page segmentation is the step that finds text lines and regions
+on a page before recognition. For large books or document batches, that step
+can dominate runtime.
+
+This spin off keeps Kraken's default BLLA segmentation behaviour and crop
+geometry, but adds a multiprocess batch path so many pages can be segmented at
+once. It also moves the Sato ridge-filter step onto the parent GPU path while
+leaving Kraken's Shapely polygon geometry unchanged.
+
+The project is published as `kraken-gpu`. It is independent of the upstream
+Kraken project and should not be presented as the upstream project.
 
 This is **crops on N CPU cores**, not a GPU geometry engine. The neural net
 (and parent-only Sato) run on GPU; polygons are still stock Shapely.
@@ -73,7 +86,7 @@ approaches in `DEV_NOTES.md`. Any geometry change must match serial crops
 
 ## Licence
 
-Apache-2.0. This fork derives from Kraken by Benjamin Kiessling and
+Apache-2.0. This spin off derives from Kraken by Benjamin Kiessling and
 contributors. See `LICENSE`.
 
 ## Docs
